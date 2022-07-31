@@ -41,7 +41,7 @@ const Dashboard = () => {
   }
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this frun ?")) {
+    if (window.confirm("Are you sure you want to delete this fun run ?")) {
       dispatch(deleteFrun({ id, toast }));
     }
   };
