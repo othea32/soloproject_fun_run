@@ -78,12 +78,37 @@ export const updateFrun = createAsyncThunk(
   }
 );
 
+export const searchFruns = createAsyncThunk(
+  "frun/searchFruns",
+  async (searchQuery, { rejectWithValue }) => {
+    try {
+      const response = await api.getFrunsBySearch(searchQuery);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getFrunsByTag = createAsyncThunk(
+  "frun/getFrunsByTag",
+  async (tag, { rejectWithValue }) => {
+    try {
+      const response = await api.getTagFruns(tag);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const frunSlice = createSlice({
   name: "frun",
   initialState: {
     frun: {},
     fruns: [],
     userFruns: [],
+    tagFruns: [],
     error: "",
     loading: false,
   },
@@ -169,6 +194,28 @@ const frunSlice = createSlice({
       }
     },
     [updateFrun.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [searchFruns.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [searchFruns.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.fruns = action.payload;
+    },
+    [searchFruns.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [getFrunsByTag.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getFrunsByTag.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.tagFruns = action.payload;
+    },
+    [getFrunsByTag.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },

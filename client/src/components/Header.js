@@ -12,10 +12,25 @@ import {
 } from "mdb-react-ui-kit";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../redux/features/authSlice";
+import { searchFruns } from "../redux/features/frunSlice";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [show, setShow] = useState(false);
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(search) {
+      dispatch(searchFruns(search));
+      navigate(`/tours/search?searchQuery=${search}`);
+      setSearch("");
+    }else{
+      navigate("/");
+    }
+  }
 
   const handleLogout = () => {
     dispatch(setLogout());
@@ -55,7 +70,7 @@ const Header = () => {
               <>
                 <MDBNavbarItem>
                   <MDBNavbarLink href="/addFrun">
-                    <p className="header-text">Add Fun run</p>
+                    <p className="header-text">Add Fun Run</p>
                   </MDBNavbarLink>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
@@ -81,6 +96,19 @@ const Header = () => {
               </MDBNavbarItem>
             )}
           </MDBNavbarNav>
+          <form className="d-flex input-group w-auto" onSubmit={handleSubmit}>
+            <input 
+            type={"text"}
+            className="form-control"
+            placeholder="Search Fun Run"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            />
+            <div style={{marginTop: "5px", marginLeft: "5px"}}>
+              <MDBIcon fas icon="search" />
+            </div>
+
+          </form>
         </MDBCollapse>
       </MDBContainer>
     </MDBNavbar>

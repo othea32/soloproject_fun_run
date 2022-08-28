@@ -80,3 +80,24 @@ export const updateFrun = async (req, res) => {
     res.status(404).json({ message: "Something went wrong" });
   }
 };
+
+export const getFrunsBySearch = async (req, res) => {
+  const {searchQuery} = req.query;
+  try {
+    const title = new RegExp(searchQuery, "i");
+    const fruns = await FrunModal.find({title});
+    res.json(fruns);
+  } catch(error) {
+    res.status(404).json({message : "Something went wrong"});
+  }
+};
+
+export const getFrunsByTag = async (req, res) => {
+  const {tag} = req.params;
+  try {
+    const fruns = await FrunModal.find({tags: {$in: tag}});
+    res.json(fruns);
+  } catch(error) {
+    res.status(404).json({message : "Something went wrong"});
+  }
+};

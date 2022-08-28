@@ -7,13 +7,18 @@ import {
   deleteFrun,
   getFrun,
   getFruns,
+  getFrunsBySearch,
+  getFrunsByTag,
   getFrunsByUser,
   updateFrun,
 } from "../controllers/frun.controller.js";
 
-router.post("/", auth, createFrun);
+router.get("/search", getFrunsBySearch);
+router.get("/tag/:tag", getFrunsByTag);
 router.get("/", getFruns);
 router.get("/:id", getFrun);
+
+router.post("/", auth, createFrun);
 router.delete("/:id", auth, deleteFrun);
 router.patch("/:id", auth, updateFrun);
 router.get("/userFruns/:id", auth, getFrunsByUser);

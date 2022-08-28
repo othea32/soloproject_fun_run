@@ -14,6 +14,7 @@ import SingleFrun from "./pages/SingleFrun";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import NotFound from "./pages/NotFound";
+import TagFruns from "./pages/TagFruns";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/fruns/search" element={<Home />} />
+          <Route path="/fruns/tag/:tag" element={<TagFruns />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route

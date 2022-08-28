@@ -22,3 +22,6 @@ export const deleteFrun = (id) => API.delete(`/frun/${id}`);
 export const updateFrun = (updatedFrunData, id) =>
   API.patch(`/frun/${id}`, updatedFrunData);
 export const getFrunsByUser = (userId) => API.get(`/frun/userFruns/${userId}`);
+
+export const getFrunsBySearch = (searchQuery) => API.get(`/frun/search?searchQuery=${searchQuery}`)
+export const getTagFruns = (tag) => API.get(`/frun/tag/${tag}`);

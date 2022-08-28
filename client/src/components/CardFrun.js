@@ -28,7 +28,9 @@ const CardFrun = ({ imageFile, description, title, tags, _id, name }) => {
         />
         <div className="top-left">{name}</div>
         <span className="text-start tag-card">
-          {tags.map((item) => `#${item} `)}
+          {tags.map((tag) => (
+            <Link to={`/fruns/tag/${tag}`}> #{tag}</Link>
+          ))}
         </span>
         <MDBCardBody>
           <MDBCardTitle className="text-start">{title}</MDBCardTitle>
